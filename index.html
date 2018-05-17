@@ -26,14 +26,22 @@
                     required
                 >
                 <div class="input-group-button">
-                    <button class ="button" type="submit">
+                    <button class ="button success" type="submit">
                         Add Flick
                     </button>
                 </div>
             </div>
         </form>
 
-        <ul id="flickList"></ul>
+        <ul id="flickList" class="no-bullet">
+            <li class="flick grid-x align-middle">
+                <span class="flickName cell auto">Jupiter Ascending</span>
+                <span class="actions cell shrink">
+                    <button class="button warning">fav</button>
+                    <button class="button alert">del</button>
+                </span>
+            </li>
+        </ul>
     </main>
 
     
