@@ -13,8 +13,9 @@ class App {
             })
     }
 
-    removeFlick(item, flick, ev) {
+    removeFlick(item, flick, _ev) {
         //remove from DOM
+        // const item = ev.target.closest('.flick')
         item.remove()
 
         //remove from the array
@@ -23,8 +24,29 @@ class App {
 
     }
 
-    favFlick(item, flick, ev){
+    favFlick(item, flick, _ev){
         flick.fav = item.classList.toggle('fav')
+    }
+
+    toggleEditable(item, flick, ev){
+        const item = ev.target.closest('.flick')
+        const nameField = item.querySelector('.flickName')
+        const btn = item.querySelector('.edit.button')
+        if (nameField.contentEditable){
+            //make it no longer editable
+            nameField.contentEditable = false
+            btn.textContent = 'edit'
+            btn.classList.remove('success')
+            
+            flick.name = nameField.textContent
+        }
+        else{
+            //make it editable
+            nameField.contentEditable = true
+            nameField.focus()
+            btn.textContent = 'save'
+            btn.classList.add('success')
+        }
     }
 
     renderListItem(flick){
@@ -46,7 +68,14 @@ class App {
             .querySelector('.fav.button')
             .addEventListener(
                 'click',
-                this.favFlcik.bind(this, item, flick)
+                this.favFlick.bind(this, item, flick)
+            )
+
+        item
+            .querySelector('.edit.button')
+            .addEventListener(
+                'click',
+                this.toggleEditable(this, item, flick)
             )
         
         return item
