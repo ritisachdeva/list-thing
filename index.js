@@ -13,8 +13,14 @@ const app = {
             })
     },
 
-    removeFlick(item, ev) {
+    removeFlick(item, flick, ev) {
+        //remove from DOM
         item.remove()
+
+        //remove from the array
+        const i = this.flicks.indexOf(flick)
+        this.flicks.splice(i, 1)
+
     },
 
     renderListItem(flick){
