@@ -28,8 +28,8 @@ class App {
         flick.fav = item.classList.toggle('fav')
     }
 
-    toggleEditable(item, flick, ev){
-        const item = ev.target.closest('.flick')
+    toggleEditable(item, flick, _ev){
+        // const item = ev.target.closest('.flick')
         const nameField = item.querySelector('.flickName')
         const btn = item.querySelector('.edit.button')
         if (nameField.contentEditable){
@@ -37,7 +37,7 @@ class App {
             nameField.contentEditable = false
             btn.textContent = 'edit'
             btn.classList.remove('success')
-            
+
             flick.name = nameField.textContent
         }
         else{
@@ -49,13 +49,23 @@ class App {
         }
     }
 
+    saveOnEnter(item, flick, _ev){
+        if (event.key === 'Enter'){
+            this.toggleEditable(item, flick)
+        }
+    }
+
     renderListItem(flick){
         const item = this.template.cloneNode(true)
         item.classList.remove('template')
         item.dataset.id = flick.id
-        item
-            .querySelector('.flickName')
-            .textContent = flick.name
+        
+        const nameSpan = item.querySelector('.flickName')
+        nameSpan.textContent = flick.name
+        nameSpan.addEventListener(
+            'keypress',
+            this.saveOnEnter.bind(this, item, flick)
+        )
 
         item   
             .querySelector('.remove.button')
